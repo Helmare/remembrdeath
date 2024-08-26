@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An X bot for remembrdeath.",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node ."
   },
