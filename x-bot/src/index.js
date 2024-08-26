@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import postgres from 'postgres';
+import { TwitterApi } from 'twitter-api-v2';
 
 // Load .env file.
 dotenv.config();
@@ -36,9 +37,20 @@ if (result.length == 0) {
   process.exit(-1);
 }
 const post = result[0];
-if (!post.message) {
+if (!post.status) {
   console.error('post does not contain message field.');
   process.exit(-1);
 }
+console.log(`got post: ${post.status}`);
 
-console.log(`got post: ${post.message}`);
+console.log('connecting to x...');
+const twitter = new TwitterApi({
+  appKey: X_APP_KEY,
+  appSecret: X_APP_SECRET,
+  accessToken: X_ACCESS_TOKEN,
+  accessSecret: X_ACCESS_TOKEN_SECRET
+});
+
+console.log('posting to x...');
+await twitter.v2.tweet(post.status);
+console.log('successfully posted to x.');
